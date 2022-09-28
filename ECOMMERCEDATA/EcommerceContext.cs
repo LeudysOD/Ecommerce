@@ -1,6 +1,7 @@
 ﻿
 using EcommerceDAContracts;
 using EcommerceDAContracts.Entities;
+using ECOMMERCEDATA.EntityConfig;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -23,6 +24,7 @@ namespace EcommerceDA
         protected override void OnModelCreating (ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductsModel>().ToTable("Products");
+            ProductEntityConfig.SetProductEntityConfig(modelBuilder.Entity<ProductsModel>());
         }
     }
 }

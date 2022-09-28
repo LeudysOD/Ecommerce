@@ -17,6 +17,7 @@ namespace EcommerceApplicationContracts.Mappers
             
                 {
                     ProductId = productsModel.ProductId,
+                    ProductCode= productsModel.ProductCode,
                     ProductName = productsModel.ProductName,
                     Price = productsModel.Price,
                     OnHand = productsModel.OnHand
