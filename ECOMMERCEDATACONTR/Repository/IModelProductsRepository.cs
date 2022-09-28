@@ -11,7 +11,7 @@ namespace EcommerceDAContracts.Repository
      public interface IModelProductsRepository
     {
 
-        Task UpdateProduct(ProductsModel products);
+    
 
         Task AddProduct(ProductsModel products);
 
@@ -19,6 +19,10 @@ namespace EcommerceDAContracts.Repository
         List<ProductsModel> GetAllProducts();
 
         Task<ProductsModel> GetOneProduct(int id);
+
+        Task<ProductsModel> GetByProductCode(string ProductCode);
+        Task<ProductsModel> UpdateStock(string ProductCode, int Newstock);
+        Task<ProductsModel> UpdateProduct(string ProductCode, string Name, int Price);
 
         Task Delete(int id);
 

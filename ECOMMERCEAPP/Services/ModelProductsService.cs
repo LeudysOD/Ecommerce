@@ -40,13 +40,24 @@ namespace EcommerceApplication.Services
             
         }
 
+        public async Task<Products> GetProductCode(string ProductCode)
+        {
+            var entity = await _modelProductsRepository.GetByProductCode(ProductCode);
+
+            return ProductModelMapper.Map(entity);
+        }
+
         public async Task AddProduct(Products products)
         {
             await _modelProductsRepository.AddProduct(ProductEntityMapper.Map(products));
         }
-        public async Task UpdateProduct(Products products)
+        public async Task UpdateStock(string ProductCode, int Newstock)
         {
-           await  _modelProductsRepository.UpdateProduct(ProductEntityMapper.Map(products));
+            await _modelProductsRepository.UpdateStock(ProductCode, Newstock);
+        }
+        public async Task UpdateProduct(string ProductCode, string Name, int Price)
+        {
+            await _modelProductsRepository.UpdateProduct(ProductCode, Name, Price);
         }
 
         public async Task DeleteProduct(int id)

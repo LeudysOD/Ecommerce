@@ -21,7 +21,7 @@ namespace EcommerceDA.Repository
             _context = context;
         }
 
-        public async Task UpdateProduct (ProductsModel products)
+        public async Task UpdateProduct ( ProductsModel products)
         {
             _context.Products.Update(products);
            await  _context.SaveChangesAsync();
@@ -40,10 +40,31 @@ namespace EcommerceDA.Repository
         public async Task<ProductsModel> GetOneProduct(int id)
         {
            return await _context.Products.FindAsync(id);
-            
-           
+        }   
+        public async Task<ProductsModel> GetByProductCode(string ProductCode)
+        {
+            return _context.Products.Where(x => x.ProductCode == ProductCode).FirstOrDefault();
+        }
+        public async Task<ProductsModel> UpdateStock(string ProductCode,int Newstock)
+        {
+               var entity = _context.Products.Where(x => x.ProductCode == ProductCode).FirstOrDefault();
+            entity.OnHand = Newstock;
 
-   
+            _context.Products.Update(entity);
+
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+        public async Task<ProductsModel> UpdateProduct(string ProductCode, string Name, int Price)
+        {
+            var entity = _context.Products.Where(x => x.ProductCode == ProductCode).FirstOrDefault();
+            entity.ProductName = Name;
+            entity.Price= Price;
+
+            _context.Products.Update(entity);
+
+            await _context.SaveChangesAsync();
+            return entity;
         }
         public async Task Delete (int id)
         {

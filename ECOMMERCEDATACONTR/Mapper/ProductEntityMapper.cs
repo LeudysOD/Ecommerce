@@ -16,8 +16,8 @@ namespace EcommerceDAContracts.Mapper
             return new ProductsModel
             {
                 ProductId = products.ProductId,
+                ProductCode = products.ProductCode, 
                 ProductName = products.ProductName,
-
                 Price = products.Price,
                 OnHand = products.OnHand
             };

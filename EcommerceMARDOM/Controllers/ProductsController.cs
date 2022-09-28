@@ -21,10 +21,10 @@ namespace EcommerceMARDOM.Controllers
 
         // GET: api/<ProductsController>
         [HttpGet]
-        [Route("GetAllProducts")]
+        [Route("GetAll")]
         public async Task<IActionResult> GetAllProducts()
         {
-            var entity = _productsService.GetAll();
+            var entity =  _productsService.GetAll();
             return Ok(entity);
 
         }
@@ -34,22 +34,31 @@ namespace EcommerceMARDOM.Controllers
 
         // GET api/<ProductsController>/5
         [HttpGet]
-        [Route("GetOneProduct/{id}")]
+        [Route("GetOne/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var entity = await _productsService.GetOne(id);
 
             return Ok(entity);
         }
+        [HttpGet]
+        [Route("GetOneBy/{ProductCode}")]
+        public async Task<IActionResult> GetByCode(string ProductCode)
+        {
+            var entity = await _productsService.GetProductCode(ProductCode);
+
+            return Ok(entity);
+        }
 
         // POST api/<ProductsController>
         [HttpPost]
-        [Route("CreateProduct")]
+        [Route("Create")]
         public async Task <IActionResult> Post(AddRequest request)
         {
             var product = new Products
             {
                 ProductName= request.ProductName,
+                ProductCode=request.ProductCode,
                 Price =request.Price,
                 OnHand = request.OnHand
             };
@@ -62,17 +71,10 @@ namespace EcommerceMARDOM.Controllers
 
         // PUT api/<ProductsController>/5
         [HttpPatch]
-        [Route("Restock/{id}")]
-        public async Task<IActionResult> Restock(int id, RestockRequest request)
+        [Route("Restock/{ProductCode}")]
+        public async Task<IActionResult> Restock(string ProductCode, RestockRequest request)
         {
-
-            var entity = await _productsService.GetOne(id);
-            entity.OnHand = 30;
-
-           await _productsService.UpdateProduct(entity);
-            
-         
-
+            await _productsService.UpdateStock(ProductCode, request.Stock);
             return Ok();
             
         }
@@ -80,12 +82,9 @@ namespace EcommerceMARDOM.Controllers
 
 
         [HttpPatch]
-        [Route("Edit/{id}")]
-        public async Task<IActionResult> EditProduct(int id,EditRequest request) {
-
-
-
-           
+        [Route("Edit/{ProductCode}")]
+        public async Task<IActionResult> EditProduct(string ProductCode,EditRequest request) {
+            await _productsService.UpdateProduct(ProductCode,request.ProductName,request.Price);
 
             return Ok();
         }
