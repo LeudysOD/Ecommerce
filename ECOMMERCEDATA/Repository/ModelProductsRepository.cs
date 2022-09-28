@@ -2,6 +2,7 @@
 using EcommerceDAContracts.Entities;
 using EcommerceDAContracts.Repository;
 using Microsoft.EntityFrameworkCore;
+using Model.Modelss;
 using System;
 using System.Collections.Generic;
 using System.Formats.Asn1;
@@ -20,10 +21,10 @@ namespace EcommerceDA.Repository
             _context = context;
         }
 
-        public void UpdateProduct (ProductsModel products)
+        public async Task UpdateProduct (ProductsModel products)
         {
             _context.Products.Update(products);
-            _context.SaveChanges();
+           await  _context.SaveChangesAsync();
         }
 
         public async Task AddProduct(ProductsModel products)
@@ -32,21 +33,23 @@ namespace EcommerceDA.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task <IEnumerable <ProductsModel>> GetAllProducts()
+        public List<ProductsModel> GetAllProducts()
         {
-           return await _context.Products.ToListAsync();
-        }
+           return  _context.Products.Select(x=>x).ToList();
+        }   
         public async Task<ProductsModel> GetOneProduct(int id)
         {
-            return await _context.Products.FindAsync(id);
+           return await _context.Products.FindAsync(id);
+            
+           
 
    
         }
         public async Task Delete (int id)
         {
-            var entity = await GetOneProduct(id);
-            _context.Products.Remove(entity);
 
+            var entity = await GetOneProduct(id);
+             _context.Products.Remove(entity);
            await _context.SaveChangesAsync();
           
         }
