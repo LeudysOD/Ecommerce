@@ -2,6 +2,7 @@
 
 using EcommerceApplicationContracts.Mappers;
 using EcommerceApplicationContracts.Services;
+using EcommerceDAContracts.Entities;
 using EcommerceDAContracts.Mapper;
 using EcommerceDAContracts.Repository;
 using Model.Modelss;
@@ -25,10 +26,10 @@ namespace EcommerceApplication.Services
             _modelProductsRepository = modelProductsRepository;
         }
 
-        public async Task GetAll()
+        public List<ProductsModel> GetAll()
         {
-          await _modelProductsRepository.GetAllProducts();
-
+             var entity = _modelProductsRepository.GetAllProducts();
+            return entity;
            
         }
         public async Task<Products> GetOne(int id)
@@ -45,7 +46,7 @@ namespace EcommerceApplication.Services
         }
         public async Task UpdateProduct(Products products)
         {
-             _modelProductsRepository.UpdateProduct(ProductEntityMapper.Map(products));
+           await  _modelProductsRepository.UpdateProduct(ProductEntityMapper.Map(products));
         }
 
         public async Task DeleteProduct(int id)

@@ -11,18 +11,19 @@ namespace EcommerceDAContracts.Repository
      public interface IModelProductsRepository
     {
 
-        void UpdateProduct(ProductsModel products);
+        Task UpdateProduct(ProductsModel products);
 
         Task AddProduct(ProductsModel products);
-        
 
-       Task <IEnumerable<ProductsModel>> GetAllProducts();
+
+        List<ProductsModel> GetAllProducts();
 
         Task<ProductsModel> GetOneProduct(int id);
-        
-       Task Delete(int id);
-        
-            
+
+        Task Delete(int id);
+
+
+
 
 
 

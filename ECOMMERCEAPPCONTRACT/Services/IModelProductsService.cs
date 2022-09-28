@@ -1,4 +1,5 @@
 ﻿using EcommerceApplicationContracts.Mappers;
+using EcommerceDAContracts.Entities;
 using EcommerceDAContracts.Mapper;
 using Model.Modelss;
 using System;
@@ -12,8 +13,9 @@ namespace EcommerceApplicationContracts.Services
     public interface IModelProductsService
     {
 
-        Task GetAll();
-     
+        List<ProductsModel> GetAll();
+
+
         Task<Products> GetOne(int id);
        
 

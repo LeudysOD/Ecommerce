@@ -16,7 +16,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<EcommerceContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<EcommerceContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.EnableSensitiveDataLogging();
+});
+
 builder.Services.AddTransient<IModelProductsService, ModelProductsService>();
 builder.Services.AddTransient<IEcommerceContext,EcommerceContext>();
 builder.Services.AddTransient<IModelProductsRepository, ModelProductsRepository>();
