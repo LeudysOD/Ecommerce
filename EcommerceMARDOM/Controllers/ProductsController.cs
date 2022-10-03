@@ -23,7 +23,7 @@ namespace EcommerceMARDOM.Controllers
         [HttpGet]
         [Route("GetAll")]
         public async Task<IActionResult> GetAllProducts()
-        {
+                                {
             var entity =  _productsService.GetAll();
             return Ok(entity);
 
@@ -39,27 +39,42 @@ namespace EcommerceMARDOM.Controllers
         {
             var entity = await _productsService.GetOne(id);
 
+            if(entity == null)
+            {
+                return NoContent(); 
+            }
+            else
+            {
             return Ok(entity);
+            }
         }
         [HttpGet]
         [Route("GetOneBy/{ProductCode}")]
         public async Task<IActionResult> GetByCode(string ProductCode)
         {
+            
             var entity = await _productsService.GetProductCode(ProductCode);
-
+            if(entity == null)
+            {
+                return NoContent();
+            }
+            else
+            {
             return Ok(entity);
+
+            }
         }
 
         // POST api/<ProductsController>
         [HttpPost]
         [Route("Create")]
-        public async Task <IActionResult> Post(AddRequest request)
+        public async Task<IActionResult> Post(AddRequest request)
         {
             var product = new Products
             {
-                ProductName= request.ProductName,
-                ProductCode=request.ProductCode,
-                Price =request.Price,
+                ProductName = request.ProductName,
+                ProductCode = request.ProductCode,
+                Price = request.Price,
                 OnHand = request.OnHand
             };
 
@@ -84,7 +99,7 @@ namespace EcommerceMARDOM.Controllers
         [HttpPatch]
         [Route("Edit/{ProductCode}")]
         public async Task<IActionResult> EditProduct(string ProductCode,EditRequest request) {
-            await _productsService.UpdateProduct(ProductCode,request.ProductName,request.Price);
+            await _productsService.UpdateProduct(ProductCode,request.ProductName, (int)request.Price);
 
             return Ok();
         }

@@ -15,11 +15,11 @@ namespace EcommerceDAContracts.Mapper
         {
             return new ProductsModel
             {
-                ProductId = products.ProductId,
+                ProductId = (int)products.ProductId,
                 ProductCode = products.ProductCode, 
                 ProductName = products.ProductName,
-                Price = products.Price,
-                OnHand = products.OnHand
+                Price = (double)products.Price,
+                OnHand = (int)products.OnHand
             };
         }
     }

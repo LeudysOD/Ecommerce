@@ -12,7 +12,8 @@ namespace EcommerceApplicationContracts.Mappers
     {
 
         public static Products Map(ProductsModel productsModel)
-        {
+       
+             { 
             return new Products
             
                 {
@@ -22,7 +23,9 @@ namespace EcommerceApplicationContracts.Mappers
                     Price = productsModel.Price,
                     OnHand = productsModel.OnHand
                 };
+            }
+           
   
         }
-    }
+    
 }
