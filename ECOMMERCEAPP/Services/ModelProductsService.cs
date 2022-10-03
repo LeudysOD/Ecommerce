@@ -35,16 +35,27 @@ namespace EcommerceApplication.Services
         public async Task<Products> GetOne(int id)
         {
             var entity = await _modelProductsRepository.GetOneProduct(id);
-
+            if(entity == null)
+            {
+                return null;
+            }
+            else
+            {
             return ProductModelMapper.Map(entity);
+            }
             
         }
 
         public async Task<Products> GetProductCode(string ProductCode)
         {
             var entity = await _modelProductsRepository.GetByProductCode(ProductCode);
-
+            if(entity == null)
+            {
+                return null;
+            }
             return ProductModelMapper.Map(entity);
+            
+          
         }
 
         public async Task AddProduct(Products products)
